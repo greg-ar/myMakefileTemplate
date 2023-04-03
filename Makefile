@@ -20,7 +20,6 @@ COMPILE=$(CC) $(CFLAGS) $(STD)
 all: $(OUTPUT)
 
 $(OUTPUT): $(OBJECTS)  
-	echo $(SOURCES)
 	$(COMPILE) -o $@ $^
 
 $(PATHOBJ)%.o: $(PATHSRC)%$(SRCSUFFIX)
