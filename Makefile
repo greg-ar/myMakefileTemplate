@@ -1,25 +1,29 @@
 CC=g++
 STD=-std=c++1z
 CFLAGS=-Wall -g
+
 PATHINCLUDE=./include/headers
 PATHSRC=./src/
 PATHOBJ=./obj/
 
+SRCSUFFIX=.cpp
+
 OUTPUT=MyProg
 
 
-SOURCES=$(shell find $(PATHSRC) -name *.cpp)
+SOURCES=$(shell find $(PATHSRC) -name *$(SRCSUFFIX))
 
-OBJECTS=$(patsubst $(PATHSRC)%.cpp,$(PATHOBJ)%.o,$(SOURCES))
+OBJECTS=$(patsubst $(PATHSRC)%$(SRCSUFFIX),$(PATHOBJ)%.o,$(SOURCES))
 
 COMPILE=$(CC) $(CFLAGS) $(STD)
 
 all: $(OUTPUT)
 
 $(OUTPUT): $(OBJECTS)  
+	echo $(SOURCES)
 	$(COMPILE) -o $@ $^
 
-$(PATHOBJ)%.o: $(PATHSRC)%.cpp
+$(PATHOBJ)%.o: $(PATHSRC)%$(SRCSUFFIX)
 	mkdir -p $(dir $@)
 	$(COMPILE) -I$(PATHINCLUDE) -c $< -o $@
 
